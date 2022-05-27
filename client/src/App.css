@@ -6,6 +6,16 @@
   height: 40vmin;
   pointer-events: none;
 }
+table, th, tr, td {
+	border : 1px solid;
+	
+}
+tr:nth-child(odd) {
+	background-color : #FFF9BE;
+}
+tr:nth-child(even) {
+	background-color : #E0FFD0;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

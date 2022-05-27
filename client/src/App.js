@@ -1,49 +1,17 @@
 // import logo from './logo.svg';
-import React,{useState,useEffect} from 'react';
-import axios from 'axios';
+import React from 'react';
+
 import './App.css';
 // import cors from 'cors'
-import Han from './Component/Han.js';
-import { Route, Routes } from 'react-router-dom';
+import Han from './Component/body/Han.js';
+import YakuDecs from './Component/body/YakuDecs.js';
+import Table from './Component/body/MultiJoin/Table.js';
+import Header from './Component/Header/Header.js';
+import Footer from './Component/Footer/Footer.js';
 
-const EXPRESS_URL = 'https://mahjongexpress20170786.run.goorm.io'
-//useState가 반환을 할떄 array로 반환하는데 첫번째에는 mahjong, 두번째는 setmahjong가 반환
-const Table = () => {
-	const [mahjong,setmahjong] = useState([])
-	 useEffect(() => {
-    getmahjong()
-  }, [])
-	
-	 const getmahjong = async() => { //awite를 사용하려면 async()를 써야함
-    try {
-      const res = await axios.get(EXPRESS_URL + '/')
-      //console.log(res)
-      setmahjong(res.data)
-    } 
- 	catch (err) {
-      console.log(err)
-    }
-  }
-	return(
-		<table>
-		<thead>
-			<th>yaku_name</th>
-			<th>menzen</th>
-			<th>call</th>
-		</thead>
-		<tbody>
-			{ mahjong.map( (g, i) => <tr key={i}>
-                       <td>{g.yaku_name}</td>
-                       <td>{g.menzen}</td>
-                       <td>{g.call}</td>
-                       {/* <td><img src={`${g.boxart}`}/></td> */}
-                       <td><img src={`https://picsum.photos/70?random=${i}`} alt='yaku_img'/></td>
-                     </tr>) }
-		</tbody>
-		</table>
-	)
-}
-			
+
+// const App=() =>{}
+//두 방식 다 가능
 // function App() {
 //   return (
 //     <div className="App">
@@ -70,14 +38,14 @@ const Table = () => {
 function App() {
 	return(
 	<div className="App">
-			
-			<Han/>
-			<Table/>
-			
-				
-			
-		
-		
+			<img src={"./Component/body/MultiJoin/img/pinfu.JPG"} alt='yaku_img'/>
+			<img src={'/Component/body/MultiJoin/img/logo192.png'} alt='yaku_img'/>
+			<img src={'./Component/img/logo192.png'} alt='yaku_img'/>
+			<Header/>
+		<Table/>
+		<Han/>
+		<YakuDecs/>
+			<Footer/>
 	</div>
 	)
 }

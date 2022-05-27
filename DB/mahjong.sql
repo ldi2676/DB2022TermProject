@@ -32,6 +32,17 @@ CREATE TABLE `YAKU_DESC` (
 DEFAULT CHARACTER SET utf8
 DEFAULT COLLATE utf8_general_ci;
 
+CREATE TABLE `YAKU_IMAGE` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `yaku_name` VARCHAR(255) NOT NULL,
+    `image` VARCHAR(255) ,
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`id`) REFERENCES `HAN` (`id`)
+    ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = INNODB
+DEFAULT CHARACTER SET utf8
+DEFAULT COLLATE utf8_general_ci;
+
 INSERT INTO HAN (id,yaku_name, menzen, `call`) VALUES
 (1,'핑후','1판','역없음'),
 (2,'탕야오','1판','1판'),
@@ -125,4 +136,12 @@ INSERT INTO `YAKU_DESC` (id,yaku_name, `desc`) VALUES
 (43,'지화','자신이 자이고 첫 쯔모패를 가지고 오자마자 화료 형태가 완성되는 경우. 즉 배패만으로 텐파이 후, 첫 쯔모로 바로 쯔모화료할 경우'),
 (44,'헤아림역만','역들을 중첩시켜 도합 13판 이상으로 화료.');
 
+INSERT INTO `YAKU_IMAGE` (id,yaku_name, image) VALUES
+(1,'핑후',"/DB/img/Pinfu.JPG");
+
 select * from HAN;
+select HAN.yaku_name, menzen,`call`,`desc`,image from HAN JOIN YAKU_DESC WHERE HAN.id = YAKU_DESC.id and YAKU_DESC.id = YAKU_IMAGE.id; #id값없이 조인
+
+select HAN.yaku_name, menzen,`call`,`desc`, YAKU_IMAGE.i
+mage from HAN, YAKU_DESC,YAKU_IMAGE WHERE HAN.id = YAKU_DESC.id
+ and YAKU_DESC.id = YAKU_IMAGE.id;
