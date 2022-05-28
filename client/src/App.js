@@ -3,10 +3,11 @@ import React from 'react';
 
 import './App.css';
 // import cors from 'cors'
-import Han from './Component/body/Han.js';
-import YakuDecs from './Component/body/YakuDecs.js';
-import Table from './Component/body/MultiJoin/Table.js';
 import Header from './Component/Header/Header.js';
+// import Han from './Component/body/Han.js';
+// import YakuDecs from './Component/body/YakuDecs.js';
+import Table from './Component/body/MultiJoin/Table.js';
+
 import Footer from './Component/Footer/Footer.js';
 
 
@@ -38,14 +39,9 @@ import Footer from './Component/Footer/Footer.js';
 function App() {
 	return(
 	<div className="App">
-			<img src={"./Component/body/MultiJoin/img/pinfu.JPG"} alt='yaku_img'/>
-			<img src={'/Component/body/MultiJoin/img/logo192.png'} alt='yaku_img'/>
-			<img src={'./Component/img/logo192.png'} alt='yaku_img'/>
-			<Header/>
+		<Header/>
 		<Table/>
-		<Han/>
-		<YakuDecs/>
-			<Footer/>
+		<Footer/>
 	</div>
 	)
 }

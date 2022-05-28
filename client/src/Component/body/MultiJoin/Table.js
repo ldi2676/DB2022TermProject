@@ -21,13 +21,16 @@ const Table = () => {
   }
 	 
 	return(
+		<div>
 		<table>
 		<thead>
+			<tr>
 			<th>역 이름</th>
 			<th>멘젠 시</th>
 			<th>후로 시</th>
 			<th>설명</th>
 			<th>이미지 예시</th>
+			</tr>
 		</thead>
 		<tbody>
 			{ mahjong.map( (g, i) => <tr key={i}>
@@ -36,16 +39,13 @@ const Table = () => {
                        <td>{g.call}</td>
                        <td>{g.desc}</td>
 						<td>
-							<img src={"/workspace/TermProject2022/DB/img/pinfu.JPG"} alt='yaku_img'/>
-							<img src={"../../../../../DB/img/pinfu.JPG"} alt='yaku_img'/>
-							<img src={process.env.PUBLIC_URL + '/img/logo192.png'} alt='yaku_img'/>
-							<img src={"../../../../public/img/logo192.png"} alt='yaku_img'/>
+							<img src="./img/all_simple.jpg" alt='yaku_img'/>
 							  </td>
-                       {/* <td><img src={`${g.boxart}`}/></td> */}
                        
 			 </tr>) }
 		</tbody>
 		</table>
+			</div>
 	)
 }
 export default Table;

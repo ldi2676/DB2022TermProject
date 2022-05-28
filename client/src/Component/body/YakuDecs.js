@@ -20,10 +20,11 @@ const Yaku_Desc = () => {
     }
   }
 	return(
+		<div>
 		<table>
-		<thead>
+		<thead><tr>
 			<th>yaku_name</th>
-			<th>desc</th>
+			<th>desc</th></tr>
 		</thead>
 		<tbody>
 			{ mahjong.map( (g, i) => <tr key={i}>
@@ -34,6 +35,7 @@ const Yaku_Desc = () => {
 			 </tr>) }
 		</tbody>
 		</table>
+		</div>
 	)
 }
 export default Yaku_Desc;

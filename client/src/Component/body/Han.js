@@ -20,11 +20,14 @@ const Han = () => {
     }
   }
 	return(
+		<div>
 		<table>
 		<thead>
-			<th>역 이름</th>
-			<th>멘젠 시</th>
-			<th>후로 시</th>
+			<tr>
+				<th>역 이름</th>
+				<th>멘젠 시</th>
+				<th>후로 시</th>
+			</tr>
 		</thead>
 		<tbody>
 			{ mahjong.map( (g, i) => <tr key={i}>
@@ -36,6 +39,7 @@ const Han = () => {
                      </tr>) }
 		</tbody>
 		</table>
+		</div>
 	)
 }
 export default Han;

@@ -34,9 +34,6 @@ app.get('/Han', (req, res) => {								//post방식 get 방식
 
 app.get('/Yaku_Desc', (req, res) => {								//post방식 get 방식 
 	const query = `select * from YAKU_DESC`
-		  // `select name, model, grade, title, boxart 
-		  // from gunpla left outer join mechanic 
-		  // on gunpla.mechanic_id = mechanic.id`
 	dbc.query(query, (err, rows) => {
 		if (err) {
 			res.send('{"status": "error"}')
@@ -48,9 +45,6 @@ app.get('/Yaku_Desc', (req, res) => {								//post방식 get 방식
 
 app.get('/Table', (req, res) => {								//post방식 get 방식 
 	const query = "select HAN.yaku_name, menzen,`call`,`desc`, YAKU_IMAGE.image from HAN, YAKU_DESC,YAKU_IMAGE WHERE HAN.id = YAKU_DESC.id and YAKU_DESC.id = YAKU_IMAGE.id;"
-		  // `select name, model, grade, title, boxart 
-		  // from gunpla left outer join mechanic 
-		  // on gunpla.mechanic_id = mechanic.id`
 	dbc.query(query, (err, rows) => {
 		if (err) {
 			res.send('{"status": "error"}')
