@@ -43,6 +43,50 @@ app.get('/Yaku_Desc', (req, res) => {								//post방식 get 방식
 	})
 })
 
+app.get('/Yaku_Image', (req, res) => {								//post방식 get 방식 
+	const query = `select * from YAKU_IMAGE`
+	dbc.query(query, (err, rows) => {
+		if (err) {
+			res.send('{"status": "error"}')
+			return console.log(err)
+		}
+		res.send(rows)
+	})
+})
+
+app.get('/User_Data', (req, res) => {								//post방식 get 방식 
+	const query = `select * from User_Data`
+	dbc.query(query, (err, rows) => {
+		if (err) {
+			res.send('{"status": "error"}')
+			return console.log(err)
+		}
+		res.send(rows)
+	})
+})
+
+app.get('/User_Post', (req, res) => {								//post방식 get 방식 
+	const query = `select * from User_Post`
+	dbc.query(query, (err, rows) => {
+		if (err) {
+			res.send('{"status": "error"}')
+			return console.log(err)
+		}
+		res.send(rows)
+	})
+})
+
+app.get('/User_Comment', (req, res) => {								//post방식 get 방식 
+	const query = `select * from User_Comment`
+	dbc.query(query, (err, rows) => {
+		if (err) {
+			res.send('{"status": "error"}')
+			return console.log(err)
+		}
+		res.send(rows)
+	})
+})
+
 app.get('/Table', (req, res) => {								//post방식 get 방식 
 	const query = "select HAN.yaku_name, YAKU_IMAGE.yaku_nick, menzen,`call`,`desc`, YAKU_IMAGE.image from HAN, YAKU_DESC,YAKU_IMAGE WHERE HAN.id = YAKU_DESC.id and YAKU_DESC.id = YAKU_IMAGE.id;"
 	dbc.query(query, (err, rows) => {
