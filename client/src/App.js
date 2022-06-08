@@ -1,48 +1,32 @@
 // import logo from './logo.svg';
 import React from 'react';
-
 import './App.css';
 // import cors from 'cors'
 import Header from './Component/Header/Header.js';
-// import Han from './Component/body/Han.js';
-// import YakuDecs from './Component/body/YakuDecs.js';
+import Han from './Component/body/Han.js';
+import YakuDecs from './Component/body/YakuDecs.js';
+import YakuImage from './Component/body/YakuImage.js';
+import Community from './Component/body/Community/Community.js';
 import Table from './Component/body/MultiJoin/Table.js';
-
 import Footer from './Component/Footer/Footer.js';
+import { Route, Routes} from "react-router-dom";
 
-
-// const App=() =>{}
-//두 방식 다 가능
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
-//----------------------------------------------
-// const App=() =>{}
-//두 방식 다 가능
 function App() {
 	return(
-	<div className="App">
-		<Header/>
-		<Table/>
-		<Footer/>
-	</div>
+
+		  <div className="App">
+			<Header />
+			<Routes>
+			    <Route path="/" exact element={<Table/>}/>
+			    <Route path="/Han" element={<Han/>}/>
+				<Route path="/YakuDecs" element={<YakuDecs/>}/>
+			    <Route path="/YakuImage" element={<YakuImage/>}/>
+				<Route path="/Community" element={<Community/>}/>
+				<Route path="/Login" element={<Login/>}/>
+			</Routes>
+			<Footer/>
+		  </div>
+
 	)
 }
 
