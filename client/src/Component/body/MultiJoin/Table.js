@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios';
+import './Table.css';
 
 //useState가 반환을 할떄 array로 반환하는데 첫번째에는 mahjong, 두번째는 setmahjong가 반환
 const EXPRESS_URL = 'https://mahjongexpress20170786.run.goorm.io'
@@ -19,7 +20,6 @@ const Table = () => {
       console.log(err)
     }
   }
-	 
 	return(
 		<div>
 		<table>
@@ -39,8 +39,8 @@ const Table = () => {
                        <td>{g.call}</td>
                        <td>{g.desc}</td>
 						<td>
-							<img src="./img/all_simple.jpg" alt='yaku_img'/>
-							  </td>
+						<img src={`/img/yaku/${g.image}`} alt='yaku_img'/>
+					    </td>
                        
 			 </tr>) }
 		</tbody>

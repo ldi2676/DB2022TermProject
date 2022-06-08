@@ -35,9 +35,46 @@ DEFAULT COLLATE utf8_general_ci;
 CREATE TABLE `YAKU_IMAGE` (
     `id` int NOT NULL AUTO_INCREMENT,
     `yaku_name` VARCHAR(255) NOT NULL,
-    `image` VARCHAR(255) ,
+    `image` VARCHAR(500),
+    `yaku_nick` VARCHAR(255),
     PRIMARY KEY (`id`),
     FOREIGN KEY (`id`) REFERENCES `HAN` (`id`)
+    ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = INNODB
+DEFAULT CHARACTER SET utf8
+DEFAULT COLLATE utf8_general_ci;
+
+CREATE TABLE `User_Data` (
+    # `id` int NOT NULL AUTO_INCREMENT,
+    `email` VARCHAR(500) NOT NULL,
+    `pw` VARCHAR(255) NOT NULL,
+    `user_nick` VARCHAR(255),
+    PRIMARY KEY (`email`)
+) ENGINE = INNODB
+DEFAULT CHARACTER SET utf8
+DEFAULT COLLATE utf8_general_ci;
+
+CREATE TABLE `User_Post` (
+    `write_id` int NOT NULL AUTO_INCREMENT,
+    `write_user` VARCHAR(500) NOT NULL,
+    `write_title` VARCHAR(500),
+    `write_date` VARCHAR(255),
+    `write_content` VARCHAR(1000),
+    PRIMARY KEY (`write_id`),
+    FOREIGN KEY (`write_user`) REFERENCES `User_Data` (`email`)
+    ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = INNODB
+DEFAULT CHARACTER SET utf8
+DEFAULT COLLATE utf8_general_ci;
+
+CREATE TABLE `User_Comment` (
+    `Comment_id` int NOT NULL AUTO_INCREMENT,
+    `Comment_user` VARCHAR(255) NOT NULL,
+    `Comment_write` int,
+    `Comment_date` VARCHAR(255),
+    `Comment_content` VARCHAR(1000),
+    PRIMARY KEY (`Comment_id`),
+    FOREIGN KEY (`Comment_write`) REFERENCES `User_Post` (`write_id`)
     ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = INNODB
 DEFAULT CHARACTER SET utf8
@@ -49,7 +86,7 @@ INSERT INTO HAN (id,yaku_name, menzen, `call`) VALUES
 (3,'이페코','1판','0판'),
 (4,'리치','1판','역없음'),
 (5,'일발','1판','역없음'),
-(6,'쯔모','1판','역없음'),
+(6,'멘젠쯔모','1판','역없음'),
 (7,'삼원패','1판','1판'),
 (8,'자풍패','1판','1판'),
 (9,'장풍패','1판','1판'),
@@ -89,6 +126,98 @@ INSERT INTO HAN (id,yaku_name, menzen, `call`) VALUES
 (43,'지화','역만','역없음'),
 (44,'헤아림역만','역만','역만');
 
+INSERT INTO YAKU_IMAGE (id,yaku_name, image, yaku_nick) VALUES
+# (1,'핑후','https://raw.githubusercontent.com/ldi2676/DB2022TermProject/main/client/public/yaku/%ED%95%91%ED%9B%84.PNG?token=GHSAT0AAAAAABUZ2YWSOLRVVSDZILQTX5AYYURT5RQ','평화'),
+# (2,'탕야오','https://raw.githubusercontent.com/ldi2676/DB2022TermProject/main/client/public/yaku/%ED%83%95%EC%95%BC%EC%98%A4.PNG?token=GHSAT0AAAAAABUZ2YWTOAOZLD4ID23D5MUOYURT56A','단요구'),
+# (3,'이페코','https://raw.githubusercontent.com/ldi2676/DB2022TermProject/main/client/public/yaku/%EC%9D%B4%ED%8E%98%EC%BD%94.PNG?token=GHSAT0AAAAAABUZ2YWS7S2AQJPC6NMKXUQWYURT7DQ','일배구'),
+# (4,'리치','https://github.com/ldi2676/DB2022TermProject/blob/main/client/public/yaku/%EB%A6%AC%EC%B9%98.jpg?raw=true','리치'),
+# (5,'일발','https://pbs.twimg.com/media/EkGl77qUcAAzpCi?format=jpg&name=large','잇빠츠'),
+# (6,'멘젠쯔모','https://github.com/ldi2676/DB2022TermProject/blob/main/client/public/yaku/%EC%AF%94%EB%AA%A8.PNG?raw=true','문전청자모화'),
+# (7,'삼원패','https://github.com/ldi2676/DB2022TermProject/blob/main/client/public/yaku/%EC%82%BC%EC%9B%90%ED%8C%A8.jpg?raw=true','삼원패'),
+# (8,'자풍패','https://github.com/ldi2676/DB2022TermProject/blob/main/client/public/yaku/%ED%92%8D%ED%8C%A8.PNG?raw=true','자풍패'),
+# (9,'장풍패','https://github.com/ldi2676/DB2022TermProject/blob/main/client/public/yaku/%ED%92%8D%ED%8C%A8.PNG?raw=true','장풍패'),
+# (10,'해저모월','https://github.com/ldi2676/DB2022TermProject/blob/main/client/public/yaku/%ED%95%B4%EC%A0%80%EB%AA%A8%EC%9B%94.PNG?raw=true','해저로월'),
+# (11,'하저로어','https://github.com/ldi2676/DB2022TermProject/blob/main/client/public/yaku/%ED%95%98%EC%A0%80%EB%A1%9C%EC%96%B4.PNG?raw=true','하저로어'),
+# (12,'영상개화','https://github.com/ldi2676/DB2022TermProject/blob/main/client/public/yaku/%EC%98%81%EC%83%81%EA%B0%9C%ED%99%94.jpg?raw=true','영상개화'),
+# (13,'창깡','https://github.com/ldi2676/DB2022TermProject/blob/main/client/public/yaku/%EC%B0%BD%EA%B9%A1.PNG?raw=true','창공'),
+# (14,'도라','https://github.com/ldi2676/DB2022TermProject/blob/main/client/public/yaku/%EB%8F%84%EB%9D%BC.PNG?raw=true','도라'),
+# (15,'삼색동순','https://github.com/ldi2676/DB2022TermProject/blob/main/client/public/yaku/%EC%82%BC%EC%83%89%EB%8F%99%EC%88%9C.PNG?raw=true','삼색동순'),
+# (16,'일기통관','https://github.com/ldi2676/DB2022TermProject/blob/main/client/public/yaku/%EC%9D%BC%EA%B8%B0%ED%86%B5%EA%B4%80.PNG?raw=true','일기통관'),
+# (17,'치또이츠','https://github.com/ldi2676/DB2022TermProject/blob/main/client/public/yaku/%EC%B9%98%EB%98%90%EC%9D%B4%EC%B8%A0.PNG?raw=true','칠대자'),
+# (18,'삼색동각','https://github.com/ldi2676/DB2022TermProject/blob/main/client/public/yaku/%EC%82%BC%EC%83%89%EB%8F%99%EA%B0%81.PNG?raw=true','삼색동각'),
+# (19,'찬타','https://github.com/ldi2676/DB2022TermProject/blob/main/client/public/yaku/%EC%B0%AC%ED%83%80.PNG?raw=true','혼전대요구'),
+# (20,'혼노두','https://github.com/ldi2676/DB2022TermProject/blob/main/client/public/yaku/%ED%98%BC%EB%85%B8%EB%91%90.PNG?raw=true','혼로도'),
+# (21,'또이또이','https://github.com/ldi2676/DB2022TermProject/blob/main/client/public/yaku/%EB%98%90%EC%9D%B4%EB%98%90%EC%9D%B4.PNG?raw=true','대대화'),
+# (22,'삼암각','https://github.com/ldi2676/DB2022TermProject/blob/main/client/public/yaku/%EC%82%BC%EC%95%94%EA%B0%81.PNG?raw=true','산안커'),
+# (23,'소삼원','https://github.com/ldi2676/DB2022TermProject/blob/main/client/public/yaku/%EC%86%8C%EC%82%BC%EC%9B%90.PNG?raw=true','쇼산겐'),
+# (24,'삼공자','https://github.com/ldi2676/DB2022TermProject/blob/main/client/public/yaku/%EC%82%BC%EA%B3%B5%EC%9E%90.PNG?raw=true','산깡쯔'),
+# (25,'더블리치','https://dcimg1.dcinside.com/viewimage.php?id=20bcda27ee&no=24b0d769e1d32ca73deb87fa11d02831de04ca5aee4f7f339edb1c2bd9417828b8474d02f162aeccf8ed6aee13e7063fc95e46cdb09e102534d56be0c455820a15626867d2a88445c2b00112f87a5aebcb6366412db11f4e785e794e59f94aaadcaba82ffb&orgExt','다부리'),
+# (26,'량페코','https://github.com/ldi2676/DB2022TermProject/blob/main/client/public/yaku/%EB%9F%89%ED%8E%98%EC%BD%94.PNG?raw=true','이배구'),
+# (27,'준찬타','https://blog.kakaocdn.net/dn/cFRAF3/btrwTNifvvk/oajIrFjKzOlBVAPlhRFu80/img.png','순전대요구'),
+# (28,'혼일색','https://github.com/ldi2676/DB2022TermProject/blob/main/client/public/yaku/%ED%98%BC%EC%9D%BC%EC%83%89.PNG?raw=true','혼일색'),
+# (29,'인화','https://github.com/ldi2676/DB2022TermProject/blob/main/client/public/yaku/%EC%9D%B8%ED%99%94.PNG?raw=true','렌호'),
+# (30,'유국만관','https://github.com/ldi2676/DB2022TermProject/blob/main/client/public/yaku/%EC%9C%A0%EA%B5%AD%EB%A7%8C%EA%B4%80.PNG?raw=true','나가시만관'),
+# (31,'청일색','https://github.com/ldi2676/DB2022TermProject/blob/main/client/public/yaku/%EC%B2%AD%EC%9D%BC%EC%83%89.PNG?raw=true','친이쯔'),
+# (32,'구련보등','https://raw.githubusercontent.com/ldi2676/DB2022TermProject/184455394b546da0da4d90192b3b4e0dc3b4ac33/client/public/yaku/%EA%B5%AC%EB%A0%A8%EB%B3%B4%EB%93%B1.PNG?token=AIS4QL4DSYMDQQFF6KU7F5LCSGTJA','구련보등'),
+# (33,'녹일색','https://raw.githubusercontent.com/ldi2676/DB2022TermProject/184455394b546da0da4d90192b3b4e0dc3b4ac33/client/public/yaku/%EB%85%B9%EC%9D%BC%EC%83%89.PNG?token=AIS4QLYT3D3DHLN2YKXCXRTCSGTJA','녹일색'),
+# (34,'사암각','https://raw.githubusercontent.com/ldi2676/DB2022TermProject/184455394b546da0da4d90192b3b4e0dc3b4ac33/client/public/yaku/%EC%82%AC%EC%95%94%EA%B0%81.PNG?token=AIS4QL5R553BYGCMLJZ53ELCSGTJA','스앙코'),
+# (35,'사공자','https://raw.githubusercontent.com/ldi2676/DB2022TermProject/184455394b546da0da4d90192b3b4e0dc3b4ac33/client/public/yaku/%EC%82%AC%EA%B3%B5%EC%9E%90.PNG?token=AIS4QL63VKWCLRUKOX5GJDDCSGTJA','스깡쯔'),
+# (36,'청노두','https://raw.githubusercontent.com/ldi2676/DB2022TermProject/184455394b546da0da4d90192b3b4e0dc3b4ac33/client/public/yaku/%EC%B2%AD%EB%85%B8%EB%91%90.PNG?token=AIS4QL4TXV6AFWSXJ4KDFXTCSGTJA','칭로토'),
+# (37,'국사무쌍','https://raw.githubusercontent.com/ldi2676/DB2022TermProject/184455394b546da0da4d90192b3b4e0dc3b4ac33/client/public/yaku/%EA%B5%AD%EC%82%AC%EB%AC%B4%EC%8C%8D.PNG?token=AIS4QL5READUJJQ4RUDRYSDCSGTJA','국사무쌍'),
+# (38,'대삼원','https://raw.githubusercontent.com/ldi2676/DB2022TermProject/184455394b546da0da4d90192b3b4e0dc3b4ac33/client/public/yaku/%EB%8C%80%EC%82%BC%EC%9B%90.PNG?token=AIS4QLYIME22PL3Q2VAH7R3CSGTJA','다이산겐'),
+# (39,'소사희','https://raw.githubusercontent.com/ldi2676/DB2022TermProject/184455394b546da0da4d90192b3b4e0dc3b4ac33/client/public/yaku/%EC%86%8C%EC%82%AC%ED%9D%AC.PNG?token=AIS4QL4TFAHBGQ2C6QXQUPLCSGTJA','쇼우스시'),
+# (40,'대사희','https://raw.githubusercontent.com/ldi2676/DB2022TermProject/184455394b546da0da4d90192b3b4e0dc3b4ac33/client/public/yaku/%EB%8C%80%EC%82%AC%ED%9D%AC.PNG?token=AIS4QL4MV2VTLNZUGSIFUN3CSGTJA','다이스시'),
+# (41,'자일색','https://raw.githubusercontent.com/ldi2676/DB2022TermProject/184455394b546da0da4d90192b3b4e0dc3b4ac33/client/public/yaku/%EC%9E%90%EC%9D%BC%EC%83%89.PNG?token=AIS4QL7XCBT436NIHCAXREDCSGTJA','츠이소우'),
+# (42,'천화','https://raw.githubusercontent.com/ldi2676/DB2022TermProject/184455394b546da0da4d90192b3b4e0dc3b4ac33/client/public/yaku/%EC%B2%9C%ED%99%94.PNG?token=AIS4QL3W5FMYBOUDEYZPEK3CSGTJA','텐호'),
+# (43,'지화','https://raw.githubusercontent.com/ldi2676/DB2022TermProject/184455394b546da0da4d90192b3b4e0dc3b4ac33/client/public/yaku/%EC%A7%80%ED%99%94.PNG?token=AIS4QL7XWVNH6OEDHQDVJKLCSGTJA','치호'),
+# (44,'헤아림역만','https://raw.githubusercontent.com/ldi2676/DB2022TermProject/184455394b546da0da4d90192b3b4e0dc3b4ac33/client/public/yaku/%ED%97%A4%EC%95%84%EB%A6%BC%EC%97%AD%EB%A7%8C.PNG?token=AIS4QL5H6VM2NCBLCMDKHGLCSGTJA','카조에역만');
+(1,'핑후','pinfu.jpg','평화'),
+(2,'탕야오','allSimple.jpg','단요구'),
+(3,'이페코','pureDoubleSequence.jpg','일배구'),
+(4,'리치','riichi.jpg','리치'),
+(5,'일발','ippatsu.jpg','잇빠츠'),
+(6,'멘젠쯔모','fullyConcealedHand.jpg','문전청자모화'),
+(7,'삼원패','dragon.jpg','삼원패'),
+(8,'자풍패','wind.jpg','자풍패'),
+(9,'장풍패','wind.jpg','장풍패'),
+(10,'해저모월','underTheSea.jpg','해저로월'),
+(11,'하저로어','underTheRiver.jpg','하저로어'),
+(12,'영상개화','afterAKan.jpg','영상개화'),
+(13,'창깡','robbingAKan.jpg','창공'),
+(14,'도라','dora.jpg','도라'),
+(15,'삼색동순','mixedTripleSequence.jpg','삼색동순'),
+(16,'일기통관','pureStraight.jpg','일기통관'),
+(17,'치또이츠','sevenPairs.jpg','칠대자'),
+(18,'삼색동각','tripleTriplets.jpg','삼색동각'),
+(19,'찬타','halfOutsideHand.jpg','혼전대요구'),
+(20,'혼노두','allTerminalsAndHonors.jpg','혼로도'),
+(21,'또이또이','allTriplets.jpg','대대화'),
+(22,'삼암각','threeConcealedTriplets.jpg','산안커'),
+(23,'소삼원','littleThreeDragons.jpg','쇼산겐'),
+(24,'삼공자','threeQuads.jpg','산깡쯔'),
+(25,'더블리치','doubleRiichi.jpg','다부리'),
+(26,'량페코','twicePureDoubleSequence.jpg','이배구'),
+(27,'준찬타','fullyOutsideHand.jpg','순전대요구'),
+(28,'혼일색','halfFlush.jpg','혼일색'),
+(29,'인화','blessingOfHuman.jpg','렌호'),
+(30,'유국만관','manganAtDraw.jpg','나가시만관'),
+(31,'청일색','fullFlush.jpg','친이쯔'),
+(32,'구련보등','nineGates.jpg','구련보등'),
+(33,'녹일색','allGreen.jpg','녹일색'),
+(34,'사암각','fourConcealedTriplets.jpg','스앙코'),
+(35,'사공자','fourQuads.jpg','스깡쯔'),
+(36,'청노두','allTerminals.jpg','칭로토'),
+(37,'국사무쌍','thirteenOrphans.jpg','국사무쌍'),
+(38,'대삼원','bigThreeDrangons.jpg','다이산겐'),
+(39,'소사희','fourLittlewinds.jpg','쇼우스시'),
+(40,'대사희','fourBigWinds.jpg','다이스시'),
+(41,'자일색','allHonors.jpg','츠이소우'),
+(42,'천화','blessingOfHeaven.jpg','텐호'),
+(43,'지화','blessingofEarth.jpg','치호'),
+(44,'헤아림역만','counted Yakuman.jpg','카조에역만');
+
+
+
 
 INSERT INTO `YAKU_DESC` (id,yaku_name, `desc`) VALUES
 (1,'핑후','멘젠이면서 부수가 없는 형태로 완성'),
@@ -96,7 +225,7 @@ INSERT INTO `YAKU_DESC` (id,yaku_name, `desc`) VALUES
 (3,'이페코','같은 종류 수패로 똑같은 슌쯔 1쌍(ex.만패의경우 123만x2)'),
 (4,'리치','멘젠이면서 텐파이가 되었을 때 리치 선언시'),
 (5,'일발','리치 선언 후 순정 1순 이내에 론 또는 쯔모화료하는 경우'),
-(6,'쯔모','멘젠 상태로 쯔모화료하는 경우'),
+(6,'멘젠쯔모','멘젠 상태로 쯔모화료하는 경우'),
 (7,'삼원패','백, 발, 중의 자패 중 하나를 커쯔로 가진 경우'),
 (8,'자풍패','자신의 바람에 맞는 풍패를 커쯔로 가진 경우'),
 (9,'장풍패','현재 장의 바람에 맞는 풍패를 커쯔로 가진 경우'),
@@ -136,12 +265,16 @@ INSERT INTO `YAKU_DESC` (id,yaku_name, `desc`) VALUES
 (43,'지화','자신이 자이고 첫 쯔모패를 가지고 오자마자 화료 형태가 완성되는 경우. 즉 배패만으로 텐파이 후, 첫 쯔모로 바로 쯔모화료할 경우'),
 (44,'헤아림역만','역들을 중첩시켜 도합 13판 이상으로 화료.');
 
-INSERT INTO `YAKU_IMAGE` (id,yaku_name, image) VALUES
-(1,'핑후',"/DB/img/Pinfu.JPG");
 
 select * from HAN;
-select HAN.yaku_name, menzen,`call`,`desc`,image from HAN JOIN YAKU_DESC WHERE HAN.id = YAKU_DESC.id and YAKU_DESC.id = YAKU_IMAGE.id; #id값없이 조인
+# select HAN.yaku_name, menzen,`call`,`desc`,YAKU_IMAGE.image from HAN JOIN YAKU_DESC WHERE HAN.id = YAKU_DESC.id and YAKU_DESC.id = YAKU_IMAGE.id; #id값없이 조인
 
-select HAN.yaku_name, menzen,`call`,`desc`, YAKU_IMAGE.i
-mage from HAN, YAKU_DESC,YAKU_IMAGE WHERE HAN.id = YAKU_DESC.id
+select HAN.yaku_name, YAKU_IMAGE.yaku_nick, menzen,`call`,`desc`, YAKU_IMAGE.image from HAN, YAKU_DESC,YAKU_IMAGE WHERE HAN.id = YAKU_DESC.id
  and YAKU_DESC.id = YAKU_IMAGE.id;
+ 
+desc HAN;
+desc YAKU_DESC;
+desc YAKU_IMAGE;
+desc User_Data;
+desc User_Post;
+desc User_Comment;

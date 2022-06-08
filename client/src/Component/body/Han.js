@@ -35,7 +35,6 @@ const Han = () => {
                        <td>{g.menzen}</td>
                        <td>{g.call}</td>
                        {/* <td><img src={`${g.boxart}`}/></td> */}
-                       <td><img src={`https://picsum.photos/70?random=${i}`} alt='yaku_img'/></td>
                      </tr>) }
 		</tbody>
 		</table>
