@@ -9,6 +9,7 @@ import YakuImage from './Component/body/YakuImage.js';
 import Community from './Component/body/Community/Community.js';
 import Table from './Component/body/MultiJoin/Table.js';
 import Footer from './Component/Footer/Footer.js';
+import Login from './Component/body/Login/Login.js';
 import { Route, Routes} from "react-router-dom";
 
 function App() {
