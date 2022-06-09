@@ -9,7 +9,7 @@ const port = 3010
 const dbc = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password: 'mysql1234',
+	password: 'raim0526',
 	database: 'mahjongdb'
 })
 

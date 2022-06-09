@@ -2,7 +2,8 @@ import React,{useState,useEffect} from 'react'
 import axios from 'axios';
 
 //useState가 반환을 할떄 array로 반환하는데 첫번째에는 mahjong, 두번째는 setmahjong가 반환
-const EXPRESS_URL = 'https://mahjongexpress20170786.run.goorm.io'
+// const EXPRESS_URL = 'https://mahjongexpress20170786.run.goorm.io'
+const EXPRESS_URL = 'http://localhost:3010'
 const Yaku_Desc = () => {
 	const [mahjong,setmahjong] = useState([])
 	 useEffect(() => {
