@@ -23,3 +23,8 @@
 //----------------------------------------------
 // const App=() =>{}
 //두 방식 다 가능
+
+-----------download------------------------
+npm create-react-app simple-react-board
+
+npm install --save @ckeditor/ckeditor5-react @ckeditor/ckeditor5

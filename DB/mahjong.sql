@@ -60,25 +60,28 @@ CREATE TABLE `User_Post` (
     `write_title` VARCHAR(500),
     `write_date` VARCHAR(255),
     `write_content` VARCHAR(1000),
-    PRIMARY KEY (`write_id`),
-    FOREIGN KEY (`write_user`) REFERENCES `User_Data` (`email`)
-    ON DELETE CASCADE ON UPDATE CASCADE
+    PRIMARY KEY (`write_id`)
+    -- FOREIGN KEY (`write_user`) REFERENCES `User_Data` (`email`)
+    -- ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = INNODB
 DEFAULT CHARACTER SET utf8
 DEFAULT COLLATE utf8_general_ci;
 
-CREATE TABLE `User_Comment` (
-    `Comment_id` int NOT NULL AUTO_INCREMENT,
-    `Comment_user` VARCHAR(255) NOT NULL,
-    `Comment_write` int,
-    `Comment_date` VARCHAR(255),
-    `Comment_content` VARCHAR(1000),
-    PRIMARY KEY (`Comment_id`),
-    FOREIGN KEY (`Comment_write`) REFERENCES `User_Post` (`write_id`)
-    ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = INNODB
-DEFAULT CHARACTER SET utf8
-DEFAULT COLLATE utf8_general_ci;
+-- CREATE TABLE `User_Comment` (
+--     `Comment_id` int NOT NULL AUTO_INCREMENT,
+--     `Comment_user` VARCHAR(255) NOT NULL,
+--     `Comment_write` int,
+--     `Comment_date` VARCHAR(255),
+--     `Comment_content` VARCHAR(1000),
+--     PRIMARY KEY (`Comment_id`),
+--     FOREIGN KEY (`Comment_write`) REFERENCES `User_Post` (`write_id`)
+--     ON DELETE CASCADE ON UPDATE CASCADE
+-- ) ENGINE = INNODB
+-- DEFAULT CHARACTER SET utf8
+-- DEFAULT COLLATE utf8_general_ci;
+
+INSERT INTO `User_Post` (`write_id`,`write_user`, `write_title`,`write_date`,`write_content`) VALUES
+(1,'이동익','제목임','2022-06-20','내용임');
 
 INSERT INTO HAN (id,yaku_name, menzen, `call`) VALUES
 (1,'핑후','1판','역없음'),

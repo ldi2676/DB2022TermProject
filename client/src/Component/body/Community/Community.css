@@ -5,8 +5,7 @@
 .CommunityPage {
 	left: 50%;
 	width: 700px;
-	display: inline-grid;
-	/* height: auto; */
+	display: inline-block;
 	background-color: white;
 }
 
@@ -44,4 +43,7 @@
 	background: indianred;
 	border-radius: 5px;
 	text-align: center;
+}
+td {
+	overflow:hidden;
 }
