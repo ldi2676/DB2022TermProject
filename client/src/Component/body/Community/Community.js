@@ -95,6 +95,7 @@ const post_notice = () => {
 
 //useState가 반환을 할떄 array로 반환하는데 첫번째에는 mahjong, 두번째는 setmahjong가 반환
 const Community = () => {
+	var j = 0;
 	const [post_map, setpost_map] = useState([])
 	useEffect(() => {
 		get_notice()
@@ -129,7 +130,7 @@ const Community = () => {
 					<input id="content-input" type='text' placeholder='내용을 적어주세요' />
 				</div>
 				<button className="submit-button" onClick={addItem}>입력</button>
-				<h1>Movie Review</h1>
+				<h1>마작 관련 게시판</h1>
 				<div className='Community-container'>
 					<h2>게시판</h2>
 					<div>
@@ -145,7 +146,7 @@ const Community = () => {
 								</tr>
 							</thead>
 							<tbody id="result_search">
-								{post_map.map((p, i) => <tr key={i}>
+								{post_map.map((p, i) => <tr key={i - 1}>
 									<td>{p.write_id}</td>
 									<td>{p.write_user}</td>
 									<td>{p.write_title}</td>
@@ -154,9 +155,12 @@ const Community = () => {
 										{p.write_content}
 									</td>
 									<button onClick={function () {
-										document.getElementById("user_list").deleteRow(table.rows.length - 1);
-									}}>삭제</button>
+										console.log(i)
+										document.getElementById("result_search").deleteRow(p)
 
+										console.log(p)
+										console.log(document.getElementById("result_search"))
+									}}>삭제</button>
 								</tr>)}
 							</tbody>
 						</table>

@@ -23,7 +23,7 @@ const Table = () => {
 	}
 	return (
 		<div>
-			<table>
+			<table >
 				<thead>
 					<tr>
 						<th>역 이름</th>
@@ -34,8 +34,8 @@ const Table = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{mahjong.map((g, i) => <tr key={i}>
-						<td>{g.yaku_name}</td>
+					{mahjong.map((g, i) => <tr key={i} >
+						<td >{g.yaku_name}</td>
 						<td>{g.menzen}</td>
 						<td>{g.call}</td>
 						<td>{g.desc}</td>
