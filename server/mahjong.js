@@ -9,7 +9,7 @@ const port = 3010
 const dbc = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password: 'raim0526',
+	password: 'mysql1234',
 	database: 'mahjongdb'
 })
 
@@ -75,17 +75,45 @@ app.get('/User_Post', (req, res) => {								//post방식 get 방식
 		res.send(rows)
 	})
 })
-app.post('/User_Post', (req, res) => {								//post방식 get 방식 
+app.post('/User_Post',(req, res) => {								//post방식 get 방식 
 	// var write_user = req.body.User;
 	// var write_title = req.body.title;
 	// var write_date = req.body.Date;
 	// var write_content = req.body.Content;
 	// var datas = [write_user, write_title, write_date, write_content]
 	console.log(req.body.data);
-	res.end("Success");
+
+	
 	// res.send(write_user+title+Date+content)
-	// const query = 'INSERT INTO User_Post (write_id,write_user, write_title,write_date,write_content) VALUES' + write_user + write_title + write_date + write_content;
-	// dbc.query(query, datas, (err, rows) => {
+	const query = 'INSERT INTO User_Post (write_id,write_user, write_title,write_date,write_content) VALUES (' + req.body.data.write_id+
+		  ","+"\'"+req.body.data.write_user+"\'"+
+		   ","+"\'"+req.body.data.write_title+"\'"+
+		   ","+"\'"+req.body.data.write_date+"\'"+
+		  "," +"\'"+req.body.data.write_content+"\'"+');';
+	console.log(query);
+	dbc.query(query, req.body.data, (err, rows) => {
+		if (err) {
+			res.send('{"status": "error"}')
+			return console.log(err)
+		}
+		res.send(rows)
+		console.log("처리")
+	})
+});
+app.put('/User_Post',(req, res) => {								//post방식 get 방식 
+	// var write_user = req.body.User;
+	// var write_title = req.body.title;
+	// var write_date = req.body.Date;
+	// var write_content = req.body.Content;
+	// var datas = [write_user, write_title, write_date, write_content]
+	console.log(req.body.write_id);
+	// console.log(req.body.data.write_id);
+
+	
+	// res.send(write_user+title+Date+content)
+	const query = 'DELETE FROM User_Post WHERE write_id = ' + req.body.write_id+';';
+	console.log(query);
+	// dbc.query(query, req.body.write_id, (err, rows) => {
 	// 	if (err) {
 	// 		res.send('{"status": "error"}')
 	// 		return console.log(err)
@@ -93,6 +121,28 @@ app.post('/User_Post', (req, res) => {								//post방식 get 방식
 	// 	res.send(rows)
 	// 	console.log("처리")
 	// })
+});
+app.delete('/User_Post',(req, res) => {								//post방식 get 방식 
+	// var write_user = req.body.User;
+	// var write_title = req.body.title;
+	// var write_date = req.body.Date;
+	// var write_content = req.body.Content;
+	// var datas = [write_user, write_title, write_date, write_content]
+	console.log(req.body.write_id);
+	// console.log(req.body.data.write_id);
+
+	
+	// res.send(write_user+title+Date+content)
+	const query = 'DELETE FROM User_Post WHERE write_id = ' + req.body.write_id+';';
+	console.log(query);
+	dbc.query(query, req.body.write_id, (err, rows) => {
+		if (err) {
+			res.send('{"status": "error"}')
+			return console.log(err)
+		}
+		res.send(rows)
+		console.log("처리")
+	})
 });
 
 app.get('/User_Comment', (req, res) => {								//post방식 get 방식 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import './Community.css';
 var count_id = 0;
-const EXPRESS_URL = 'http://localhost:3010';
+const EXPRESS_URL = 'https://mahjongexpress20170786.run.goorm.io';
 const todayTime = () => {
 	let now = new Date();
 	let todayYear = now.getFullYear();
@@ -14,7 +14,54 @@ const todayTime = () => {
 
 	return todayYear + '-' + todayMonth + '-' + todayDate + ' ' + hours + ':' + minutes + ':' + seconds;
 }
-
+function editItem (p) {
+	console.log("delItem진입")
+	axios.delete(EXPRESS_URL + "/User_Post", {
+		headers: {
+		    "Content-Type": "application/json"
+		},
+	data: {
+			write_id: (p.write_id)
+			// write_user: document.getElementById('user-input').value,
+			// write_title:document.getElementById('title-input').value,
+			// write_date: todayTime().slice(0, 19),
+			// write_content: document.getElementById('content-input').value
+		}
+	})
+		.then((response) => {
+			console.log(response)
+			console.log("put 성공")
+		})
+		.catch((error) => {
+			console.error(error)
+		});
+	document.getElementById("result_search").deleteRow((p.write_id-1))
+	
+}
+function delItem (p) {
+	console.log("delItem진입")
+	axios.delete(EXPRESS_URL + "/User_Post", {
+		headers: {
+		    "Content-Type": "application/json"
+		},
+	data: {
+			write_id: (p.write_id)
+			// write_user: document.getElementById('user-input').value,
+			// write_title:document.getElementById('title-input').value,
+			// write_date: todayTime().slice(0, 19),
+			// write_content: document.getElementById('content-input').value
+		}
+	})
+		.then((response) => {
+			console.log(response)
+			console.log("delete 성공")
+		})
+		.catch((error) => {
+			console.error(error)
+		});
+	document.getElementById("result_search").deleteRow((p.write_id-1))
+	
+}
 const addItem = () => {
 	const User = document.getElementById('user-input').value;
 	const Title = document.getElementById('title-input').value;
@@ -28,15 +75,21 @@ const addItem = () => {
 	const td4 = document.createElement("td")
 	const td5 = document.createElement("td")
 	const td6 = document.createElement("button")
+	const td7 = document.createElement("button")
 
 	td1.innerText = count_id;
 	td2.innerText = User;
 	td3.innerText = Title;
 	td4.innerText = Date;
 	td5.innerText = Content;
+	td7.innerText = "수정";
 	td6.innerText = "삭제";
 	td6.onclick = function () {
-		this.parentElement.parentElement.removeChild(tr);
+		delItem(count_id)
+	}
+	td7.onclick = function () {
+		// document.getElementById("result_search").deleteRow((tr.write_id-1))
+		editItem(count_id)
 	}
 	tr.appendChild(td1)
 	tr.appendChild(td2)
@@ -44,64 +97,50 @@ const addItem = () => {
 	tr.appendChild(td4)
 	tr.appendChild(td5)
 	tr.appendChild(td6)
+	tr.appendChild(td7)
 	table.appendChild(tr)
-	count_id++;
+	
 
 
 
-	axios({
-		method: 'post',
-		url: EXPRESS_URL + "/User_Post",
-		data: {
-			User: User,
-			Title: Title,
-			Date: Date,
-			Content: Content
+	// const User = document.getElementById('user-input').value;
+	// const Title = document.getElementById('title-input').value;
+	// const Date = todayTime().slice(0, 19);
+	axios.post(EXPRESS_URL + "/User_Post", {
+		headers: {
+		    "Content-Type": "application/json"
+		},
+	data: {
+			write_id: count_id,
+			write_user: document.getElementById('user-input').value,
+			write_title:document.getElementById('title-input').value,
+			write_date: todayTime().slice(0, 19),
+			write_content: document.getElementById('content-input').value
 		}
 	})
 		.then((response) => {
 			console.log(response)
-			console.log(count_id)
+			console.log("post 성공2")
 			// document.getElementById('profile_pic').src = "data:image/png;base64," + btoa(new Uint8Array(response.data).reduce((data, byte) => data + String.fromCharCode(byte), ""));
 		})
 		.catch((error) => {
 			console.error(error)
 		});
+	count_id++
+	location.reload();
 }
 
 
-const post_notice = () => {
-	const User = document.getElementById('user-input').value;
-	const Title = document.getElementById('title-input').value;
-	const Date = todayTime().slice(0, 19);
-	axios.post(EXPRESS_URL + "/UserComment", {
-		// headers: {
-		//     Authorization: `Bearer ${access_token}`
-		// }
 
-		User: User,
-		Title: Title,
-		Date: Date
-
-	})
-		.then((response) => {
-			console.log(response)
-			// document.getElementById('profile_pic').src = "data:image/png;base64," + btoa(new Uint8Array(response.data).reduce((data, byte) => data + String.fromCharCode(byte), ""));
-		})
-		.catch((error) => {
-			console.error(error)
-		});
-}
 
 //useState가 반환을 할떄 array로 반환하는데 첫번째에는 mahjong, 두번째는 setmahjong가 반환
 const Community = () => {
-	var j = 0;
+
 	const [post_map, setpost_map] = useState([])
 	useEffect(() => {
 		get_notice()
-		post_notice()
+		
 	}, [])
-	const table = document.getElementById("user_list")
 	const get_notice = async () => { //awite를 사용하려면 async()를 써야함
 		try {
 			const res = await axios.get(EXPRESS_URL + '/User_Post')
@@ -111,7 +150,7 @@ const Community = () => {
 			setpost_map(res.data)
 			console.log(res.data[res.data.length - 1].write_id)
 			count_id = parseInt(res.data[res.data.length - 1].write_id) + 1;
-			console.log(count_id + 1)
+
 		}
 		catch (err) {
 			// console.log(err)
@@ -142,11 +181,11 @@ const Community = () => {
 									<th>제목</th>
 									<th>작성시간</th>
 									<th>내용</th>
-									<th>삭제 버튼</th>
+									<th>기능</th>
 								</tr>
 							</thead>
 							<tbody id="result_search">
-								{post_map.map((p, i) => <tr key={i - 1}>
+								{post_map.map((p, i) => <tr key={i}>
 									<td>{p.write_id}</td>
 									<td>{p.write_user}</td>
 									<td>{p.write_title}</td>
@@ -154,13 +193,23 @@ const Community = () => {
 									<td>
 										{p.write_content}
 									</td>
+								  	
 									<button onClick={function () {
 										console.log(i)
-										document.getElementById("result_search").deleteRow(p)
+										// document.getElementById("result_search").deleteRow((p.write_id-1))
+														  delItem(p)
 
-										console.log(p)
-										console.log(document.getElementById("result_search"))
+										// console.log(p.write_id-1)
+														 
 									}}>삭제</button>
+												  <button onClick={function () {
+										console.log(i)
+										// document.getElementById("result_search").deleteRow((p.write_id-1))
+														  editItem(p)
+
+										// console.log(p.write_id-1)
+														 
+									}}>수정</button>
 								</tr>)}
 							</tbody>
 						</table>
