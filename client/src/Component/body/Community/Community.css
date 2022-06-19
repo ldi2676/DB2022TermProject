@@ -4,18 +4,19 @@
 
 .CommunityPage {
 	left: 50%;
-	width: 80em;
+	/* width: 80em; */
 	display: inline-block;
 	background-color: white;
 }
 
 .Community-container {
 	margin: 0 auto;
-	width: 80%;
+	/* width: 80%; */
 	border: 1px solid #333;
 	padding: 10px 0 30px 0;
 	border-radius: 5px;
 	margin-bottom: 50px;
+	background-color: white;
 }
 
 .form-wrapper {
@@ -44,7 +45,9 @@
 	border-radius: 5px;
 	text-align: center;
 }
-
+#edit_div {
+	display:none;
+}
 td {
 	overflow: hidden;
 }

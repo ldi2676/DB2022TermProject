@@ -56,27 +56,16 @@ CREATE TABLE `User_Post` (
 ) ENGINE = INNODB DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
 
 CREATE TABLE `User_Comment` (
-
     `Comment_id` int NOT NULL AUTO_INCREMENT,
-
     `Comment_user` VARCHAR(255) NOT NULL,
-
     `Comment_write` int,
-
     `Comment_date` VARCHAR(255),
-
     `Comment_content` VARCHAR(1000),
-
     PRIMARY KEY (`Comment_id`),
-
     FOREIGN KEY (`Comment_write`) REFERENCES `User_Post` (`write_id`)
-
     ON DELETE CASCADE ON UPDATE CASCADE
-
 ) ENGINE = INNODB
-
 DEFAULT CHARACTER SET utf8
-
 DEFAULT COLLATE utf8_general_ci;
 
 INSERT INTO
@@ -94,6 +83,23 @@ VALUES
     (4, '이아무개', '제목임4', '2022-06-23', '내용임4'),
     (5, '박아무개', '제목임5', '2022-06-24', '내용임5'),
     (6, '최아무개', '제목임6', '2022-06-25', '내용임6');
+    
+INSERT INTO
+    `User_Comment` (
+    `Comment_id`,
+    `Comment_user`,
+    `Comment_write`,
+    `Comment_date`,
+    `Comment_content`
+    )
+VALUES
+    (1, '이동익', 1, '2022-06-20', '댓글내용임1'),
+    (2, '정아무개', 1, '2022-06-21', '댓글내용임2'),
+    (3, '김아무개', 2, '2022-06-22', '댓글내용임3'),
+    (4, '이아무개', 3, '2022-06-23', '댓글내용임4'),
+    (5, '박아무개', 4, '2022-06-24', '댓글내용임5'),
+    (6, '최아무개', 5, '2022-06-25', '댓글내용임6');
+
 
 INSERT INTO
     HAN (id, yaku_name, menzen, `call`)

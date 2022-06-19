@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import './Community.css';
 var count_id = 0;
+var edit_num = 0;
 const EXPRESS_URL = 'https://mahjongexpress20170786.run.goorm.io';
 const todayTime = () => {
 	let now = new Date();
@@ -14,18 +15,28 @@ const todayTime = () => {
 
 	return todayYear + '-' + todayMonth + '-' + todayDate + ' ' + hours + ':' + minutes + ':' + seconds;
 }
+function div_show() {
+	console.log("div_show진입")
+    // var con = document.getElementById("edit_div");
+	document.getElementById("edit_div").style.display = 'block';
+	// edit_num = p;  
+}
+// <!-- <span onClick={div_show}> -->
+
 function editItem (p) {
-	console.log("delItem진입")
-	axios.delete(EXPRESS_URL + "/User_Post", {
+	console.log("editItem진입");
+	// console.log(p);
+	// console.log(p.write_id);
+	
+	axios.put(EXPRESS_URL + "/User_Post", {
 		headers: {
 		    "Content-Type": "application/json"
 		},
 	data: {
-			write_id: (p.write_id)
-			// write_user: document.getElementById('user-input').value,
-			// write_title:document.getElementById('title-input').value,
-			// write_date: todayTime().slice(0, 19),
-			// write_content: document.getElementById('content-input').value
+			write_id: (p.write_id),
+			write_user: document.getElementById('user-editinput').value,
+			write_title:document.getElementById('title-editinput').value,
+			write_content: document.getElementById('content-editinput').value
 		}
 	})
 		.then((response) => {
@@ -35,11 +46,9 @@ function editItem (p) {
 		.catch((error) => {
 			console.error(error)
 		});
-	document.getElementById("result_search").deleteRow((p.write_id-1))
-	
+	window.location.reload();
 }
 function delItem (p) {
-	console.log("delItem진입")
 	axios.delete(EXPRESS_URL + "/User_Post", {
 		headers: {
 		    "Content-Type": "application/json"
@@ -59,8 +68,9 @@ function delItem (p) {
 		.catch((error) => {
 			console.error(error)
 		});
-	document.getElementById("result_search").deleteRow((p.write_id-1))
-	
+	// document.getElementById("result_search").deleteRow((p.write_id-1))
+	count_id--;
+	window.location.reload();
 }
 const addItem = () => {
 	const User = document.getElementById('user-input').value;
@@ -85,11 +95,11 @@ const addItem = () => {
 	td7.innerText = "수정";
 	td6.innerText = "삭제";
 	td6.onclick = function () {
-		delItem(count_id)
+		// delItem(count_id)
 	}
 	td7.onclick = function () {
 		// document.getElementById("result_search").deleteRow((tr.write_id-1))
-		editItem(count_id)
+		// editItem(count_id)
 	}
 	tr.appendChild(td1)
 	tr.appendChild(td2)
@@ -127,7 +137,8 @@ const addItem = () => {
 			console.error(error)
 		});
 	count_id++
-	location.reload();
+	
+	window.location.reload();
 }
 
 
@@ -166,6 +177,7 @@ const Community = () => {
 					<span > 게시물 제목 : </span>
 					{/* <span id="date-input">{ }</span> */}
 					<input id="title-input" type='text' placeholder='제목을 적어주세요' />
+					<span > 게시물 내용 : </span>
 					<input id="content-input" type='text' placeholder='내용을 적어주세요' />
 				</div>
 				<button className="submit-button" onClick={addItem}>입력</button>
@@ -191,9 +203,13 @@ const Community = () => {
 									<td>{p.write_title}</td>
 									<td>{p.write_date}</td>
 									<td>
-										{p.write_content}
+										<details>
+											<summary>{p.write_content}</summary>
+											<p>댓글</p>
+										</details>
+										
 									</td>
-								  	
+								  	<td>
 									<button onClick={function () {
 										console.log(i)
 										// document.getElementById("result_search").deleteRow((p.write_id-1))
@@ -202,21 +218,35 @@ const Community = () => {
 										// console.log(p.write_id-1)
 														 
 									}}>삭제</button>
-												  <button onClick={function () {
-										console.log(i)
+								  <button onClick={function () {
+										console.log(i);
 										// document.getElementById("result_search").deleteRow((p.write_id-1))
-														  editItem(p)
+												edit_num=p;
+														  div_show()
 
 										// console.log(p.write_id-1)
 														 
-									}}>수정</button>
-								</tr>)}
+									}}>수정</button></td>
+								</tr>)
+								}
 							</tbody>
 						</table>
 					</div>
+					<div id="edit_div">
+					<div id="edit_title_div">수정할 내용</div>
+					<div>
+					<span > 작성자 : </span>
+					<input id="user-editinput" type='text' placeholder='작성자를 적어주세요' />
+					<span > 게시물 제목 : </span>
+					{/* <span id="date-input">{ }</span> */}
+					<input id="title-editinput" type='text' placeholder='제목을 적어주세요' />
+					<span > 게시물 내용 : </span>
+					<input id="content-editinput" type='text' placeholder='내용을 적어주세요' />
+					</div>
+						<button className="submit-button" onClick={function () {editItem(edit_num)}}>내용 수정</button>
 				</div>
-
-
+				</div>
+				
 			</div>
 
 		</div>
